@@ -1,0 +1,536 @@
+@import url('https://fonts.googleapis.com/css2?family=Coiny&family=Titan+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+      --color-pink: #feecea;
+    --color-white: #fff;
+    --color-black: #333;
+    --color-text-pink: #FF7882;
+    --color-heart: #FF7882;
+    --color-bg-letter: #fff8e4;
+    --color-border: #DACCBF;
+    --color-purple: rgb(236, 76, 236);
+}
+
+.indexbody{
+    position: relative;
+    background-image:url('images/homepage.png');
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    height: 100hv;
+    animation: slideInLeft 1s ease-out; /* apply the animation */
+}
+@keyframes slideInLeft {
+    from {
+        transform: translateX(100%); /* starts off screen to the right */
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0); /* slides into normal position */
+        opacity: 1;
+    }
+}
+
+.adventurebody{
+    margin:0;
+    padding:0;
+    perspective: 3000px; /* gives the gate a 3D depth */
+    overflow: hidden;
+}
+
+.adventure-container{
+    position: relative;
+    background-image: linear-gradient(var(--color-white), var(--color-white));
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+}
+.container{
+    position: relative;
+    height: 100vh;
+    width: auto;
+    display: flex;
+    flex-direction: column;  /* stack items vertically */
+    justify-content: flex-end; /* push content to bottom */
+    padding: 40px;
+}
+
+.button{
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 50px;      
+    padding: 15px 30px;
+    font-size: 18px;
+    color: var(--color-purple);
+    border: 2px solid var(--color-purple);
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.container a{
+    text-decoration: none;
+}
+
+.gate {
+    position: fixed;
+    top: 0;
+    width: 50%;
+    height: 100vh;
+    background-color: var(--color-black);
+    z-index: 999;
+    transition: transform 1.5s ease-in-out;
+}
+
+.gate-left {
+    left: 0;
+    transform-origin: left;
+    display: flex;
+    justify-content: flex-end;  /* pushes ribbon to the middle */
+    align-items: center;
+}
+
+.gate-right {
+    right: 0;
+    transform-origin: right;
+}
+
+/* ribbon sitting in the middle of the screen */
+.ribbon {
+    font-size: 60px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    user-select: none;
+}
+
+.ribbon:hover {
+    transform: scale(1.2);  /* grows slightly on hover */
+}
+
+/* open state — added by JavaScript */
+.gate-left.open {
+    transform: rotateY(-110deg);
+}
+
+.gate-right.open {
+    transform: rotateY(110deg);
+}
+
+.camera-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 700px;
+}
+
+.camera-frame {
+    width: 100%;
+    display: block;
+    
+}
+
+/* white screen on the left of the camera */
+.camera-lens {
+    position: absolute;
+    top: 35%;
+    left: 12%;
+    width: 45%;
+    height: 50%;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    object-fit: cover;
+}
+
+.slide.active {
+    opacity: 1;
+}
+video.slide {
+ width: 100%;
+height: 100%;
+object-fit: cover;
+}
+/* JUMP zone */
+#zone-jump {
+    position: absolute;
+    top: 40%;
+    right: 22%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+}
+
+/* glow on hover so user knows its clickable */
+#zone-jump:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+.scene {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+  min-height: 420px;
+  perspective: 1500px;
+  padding-top: 10%;
+  position: absolute;
+  bottom: 30%;
+  right:10%;
+}
+
+.book-wrapper {
+  transform: rotateX(-15deg) rotateZ(5deg); 
+  transform-style: preserve-3d;
+}
+
+.book {
+  position: relative;
+  width: 250px;
+  height: 350px;
+}
+
+/* right inside page — sits behind, always visible */
+.page-right {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff0f6;
+  border-radius: 0 12px 12px 0;
+  border: 1px solid #f0c0d8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* the flipping cover */
+.cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s ease;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.cover.open {
+  transform: rotateY(-160deg);
+}
+
+/* front face of cover */
+.cover-front {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: linear-gradient(135deg, #ffb6c1, #d8b4fe);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 4px 4px 20px rgba(0,0,0,0.15);
+}
+
+/* back face of cover = left inside page */
+.cover-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background: #fdf0ff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  box-shadow: -4px 4px 20px rgba(0,0,0,0.1);
+}
+
+.emoji {
+  font-size: 46px;
+  margin-bottom: 10px;
+}
+
+.front-text {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: white;
+  font-style: italic;
+}
+
+.hint {
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  margin-top: 14px;
+  animation: blink 1.5s infinite;
+}
+
+.left-msg {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  color: #9333ea;
+  line-height: 1.8;
+}
+
+.right-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #9d174d;
+  margin-bottom: 12px;
+  font-family: Georgia, serif;
+}
+
+.right-msg {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  color: #be185d;
+  line-height: 1.8;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+
+.decoration {
+  position: fixed; /* stays over everything */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* so decorations don't block clicks */
+  z-index: 100;
+}
+
+.decoration img {
+ position: absolute;
+ opacity:0.85;
+ animation: float 4s ease-in-out infinite;
+ 
+}
+
+.decoration img:nth-child(1) { top: 5%;  left: 3%;  width: 80px; }
+.decoration img:nth-child(2) { top: 8%;  right: 4%; width: 70px; }
+.decoration img:nth-child(3) { bottom: 15%; right: 5%; width: 50px; }
+.decoration img:nth-child(4) { bottom: 10%; left: 6%; width: 90px; }
+.decoration img:nth-child(5) { top: 8%; left: 49%; width: 60px; }
+.decoration img:nth-child(6) { bottom: 10%; right: 40%; width: 90px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-12px); }
+}
+
+
+
+/* ─── RESPONSIVE ─────────────────────────── */
+
+/* Tablet (max 1024px) */
+@media (max-width: 1024px) {
+
+  .camera-wrapper {
+    width: 500px;
+  }
+
+  .scene {
+    right: 5%;
+    bottom: 25%;
+  }
+
+  .book {
+    width: 200px;
+    height: 300px;
+  }
+
+  .front-text { font-size: 17px; }
+  .right-title { font-size: 15px; }
+  .right-msg   { font-size: 12px; }
+  .left-msg    { font-size: 13px; }
+}
+
+/* Mobile (max 768px) */
+@media (max-width: 768px) {
+
+  /* stack camera and book vertically */
+  .adventure-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .camera-wrapper {
+    width: 90vw;
+    max-width: 400px;
+    margin-top: 20px;
+  }
+
+  /* lens position scales with camera */
+  .camera-lens {
+    top: 35%;
+    left: 12%;
+    width: 45%;
+    height: 50%;
+  }
+
+  /* book sits below camera */
+  .scene {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    min-height: unset;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .book-wrapper {
+    transform: rotateX(-10deg) rotateZ(3deg);
+  }
+
+  .book {
+    width: 180px;
+    height: 270px;
+  }
+
+  .emoji      { font-size: 34px; }
+  .front-text { font-size: 16px; }
+  .hint       { font-size: 11px; }
+  .right-title{ font-size: 14px; }
+  .right-msg  { font-size: 11px; }
+  .left-msg   { font-size: 12px; }
+
+  /* ribbon stays centered */
+  .ribbon { font-size: 44px; }
+
+  /* decorations smaller on mobile */
+  .decoration img:nth-child(1) { width: 50px; }
+  .decoration img:nth-child(2) { width: 45px; }
+  .decoration img:nth-child(3) { width: 35px; }
+  .decoration img:nth-child(4) { width: 55px; }
+  .decoration img:nth-child(5) { width: 40px; }
+  .decoration img:nth-child(6) { width: 55px; }
+}
+
+/* Small mobile (max 480px) */
+@media (max-width: 480px) {
+
+  .camera-wrapper {
+    width: 95vw;
+  }
+
+  .book {
+    width: 150px;
+    height: 230px;
+  }
+
+  .emoji      { font-size: 28px; }
+  .front-text { font-size: 14px; }
+  .right-title{ font-size: 12px; }
+  .right-msg  { font-size: 10px; line-height: 1.6; }
+  .left-msg   { font-size: 11px; }
+
+  /* tighten decoration positions on small screens */
+  .decoration img:nth-child(1) { top: 2%;  left: 1%;  width: 40px; }
+  .decoration img:nth-child(2) { top: 2%;  right: 1%; width: 38px; }
+  .decoration img:nth-child(3) { bottom: 12%; right: 2%; width: 30px; }
+  .decoration img:nth-child(4) { bottom: 8%;  left: 2%;  width: 42px; }
+  .decoration img:nth-child(5) { top: 5%;  left: 44%; width: 35px; }
+  .decoration img:nth-child(6) { bottom: 8%; right: 2%; width: 42px; }
+}
+
+
+/* ─── INDEX PAGE RESPONSIVE ─────────────────────────── */
+
+/* Tablet (max 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 30px;
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
+
+/* Mobile (max 768px) */
+@media (max-width: 768px) {
+  .indexbody {
+    background-position: center;  /* keeps bg image centered on mobile */
+  }
+
+  .container {
+    padding: 20px;
+    justify-content: flex-end;    /* keeps button at bottom */
+  }
+
+  .button {
+    font-size: 15px;
+    padding: 12px 22px;
+    margin-bottom: 40px;
+  }
+}
+
+/* Small mobile (max 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+    align-items: center;          /* centers button horizontally */
+    justify-content: flex-end;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 80%;                   /* stretches button on small screens */
+  }
+
+  .button i {
+    font-size: 18px !important;   /* scales icon down */
+  }
+}
