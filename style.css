@@ -475,7 +475,7 @@ object-fit: cover;
   .scene {
     position: relative;
     bottom: auto;
-    right: auto;
+    right: -5%;
     padding-top: 30px;
     padding-bottom: 40px;
     min-height: unset;
