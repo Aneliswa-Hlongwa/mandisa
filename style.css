@@ -89,7 +89,7 @@ background-position: center;
     position: fixed;
     top: 0;
     width: 50%;
-    height: 100vh;
+    height: 100%;
     background: linear-gradient(var(--color-heart),var(--color-pink));
     z-index: 999;
     transition: transform 1.5s ease-in-out;
