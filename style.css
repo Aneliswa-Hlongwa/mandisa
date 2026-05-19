@@ -434,7 +434,7 @@ object-fit: cover;
   .book {
     width: 200px;
     height: 350px;
-    top: 0%;
+    top: 35%;
     right:1%;
   }
 
@@ -490,7 +490,7 @@ object-fit: cover;
   .book {
     width: 200px;
     height: 350px;
-    top:0%;
+    top:35%;
     right: 1%;
   }
 
@@ -523,7 +523,7 @@ object-fit: cover;
   .book {
     width: 200px;
     height: 350px;
-     top:0%;
+     top:35%;
     right:1%;
   }
 
